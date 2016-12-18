@@ -175,14 +175,14 @@
 	bc(0) = 0
 	maxscrwh(0) = int(0.8*ginfo(20)),int(0.8*ginfo(21))
 	mindexxy(0) = 0,0
-	modemes(0) = "SSキャプチャ","艦娘一覧","攻略編成","その他一覧作成モード","オプション"
+	modemes(0) = "Screenshot Capture","Ship List","Fleet List","Other","Options"
 	mxy(0) = 0,0
 	mxy_(0) = 0,0
 	sscapwh = 0,0
 	seccapf = 0
-	sscapmes = "取得する"
+	sscapmes = "Get"
 	savekind = ".png",".jpg"
-	seqcapmes = "開始"
+	seqcapmes = "Start"
 	luposx = 0
 	luposy = 0
 	rdposx = 0
@@ -243,10 +243,9 @@
 	buffer 16,640,150
 	syscolor 16
 	font "メイリオ",25,1
-	mes "スクリーンショットをここにドラッグアンドドロップ"
-	mes "またはホットキー(Altキー＋Zキー同時押し)で
-	mes "                                         画像を追加してください"
-	mes "セルの画像はウィンドウ外にドラッグで消去できます"
+	mes "Drag and drop screenshot to the window"
+	mes "or via hotkey (Alt+Z) to add an image."
+	mes "Delete image by dragging it out of window."
 	
 	screen 19,448,250,2
 	oncmd gosub *twiwindowimage,0x0201
@@ -313,7 +312,7 @@
 	
 	objsize 175,30
 	pos 0,0
-	combox cellmode,30,"  SSキャプチャモード\n  艦娘一覧モード\n  攻略編成モード\n  その他一覧作成モード\n  オプション"
+	combox cellmode,30,"  Screenshot Capture\n  Ship List Mode\n  Fleet List Mode\n  Other Mode\n  Options"
 	;combox cellmode,30,"  SSキャプチャモード\n  艦娘一覧モード\n  攻略編成モード\n  オプション"
 	comboxid = stat
 	hcombox = objinfo_hwnd(comboxid)
@@ -650,7 +649,7 @@ return
 	mesy = 31
 	
 	pos 2,mesy
-	mes "キャプチャ座標"
+	mes "Coordinates:"
 		
 	objsize 80,25
 	pos 95,mesy-3
@@ -700,13 +699,13 @@ return
 	
 	objsize 175,20
 	pos 5+mesaddx,mesy
-	chkbox "自動座標取得",autoSearch:mesy+=20
+	chkbox "Auto search",autoSearch:mesy+=20
 	autoSearchCId = stat
 	pos 5+mesaddx,mesy
-	chkbox "提督名と司令部Lvを隠す",hidename:mesy+=20
+	chkbox "Hide name and HQ lv",hidename:mesy+=20
 	hidenamebid = stat
 	pos 5+mesaddx,mesy
-	chkbox "ツイートウィンドウ表示",enabletweetwindow:mesy+=20
+	chkbox "Display tweet window",enabletweetwindow:mesy+=20
 	enabletweetwindowcid = stat
 	enabletweetwindowch = objinfo_hwnd(enabletweetwindowcid)
 	
@@ -721,12 +720,12 @@ return
 
 	objsize 130-(((yabumiautoupload = 1) & (availableyabumi = 1))*25),30
 	pos 0,mesy
-	button gosub "SSキャプチャ",*sscaptcha
+	button gosub "Capture SS",*sscaptcha
 	sscapbid = stat
 
 	objsize 25,30
 	pos 130-(((yabumiautoupload = 1) & (availableyabumi = 1))*25),mesy
-	button gosub "開",*sssavefopen
+	button gosub "O",*sssavefopen
 	fopenbid = stat
 	
 	if ((yabumiautoupload = 1) & (availableyabumi = 1)) {
@@ -814,7 +813,7 @@ return
 	syscolor 15:boxf:color
 	
 	pos 2,mesy
-	mes "キャプチャ座標"
+	mes "Coordinates:"
 		
 	objsize 80,25
 	pos 95,mesy-3
@@ -829,35 +828,35 @@ return
 		width 175
 		mesy_ = mesy
 		pos 5,mesy
-		chkbox "一覧作成モード1",ichiranMode1:mesy+=100
+		chkbox "Mode 1",ichiranMode1:mesy+=100
 		ichiranMode1Cid = stat
 		ichiranMode1Ch = objinfo_hwnd(ichiranMode1CId)
 		SetWindowLong ichiranMode1Ch, -16, $50000009 | $20000
 
 		pos 5,mesy
-		chkbox "一覧作成モード2",ichiranMode2:mesy+=20
+		chkbox "Mode 2",ichiranMode2:mesy+=20
 		ichiranMode2Cid = stat
 		ichiranMode2Ch = objinfo_hwnd(ichiranMode2CId)
 		sendmsg ichiranMode2Ch, $F4, $9
 
 		mesy_+=20
 		pos 22,mesy_
-		chkbox "指輪も入れる",yubiwa:mesy_+=20
+		chkbox "Include ring",yubiwa:mesy_+=20
 		yubiwacid = stat
 		yubiwach = objinfo_hwnd(yubiwacid)
 		
 		pos 22,mesy_
-		chkbox "所属艦隊も入れる",kantai:mesy_+=20
+		chkbox "Include fleet ID",kantai:mesy_+=20
 		kantaicid = stat
 		kantaich = objinfo_hwnd(kantaicid)
 		
 		pos 22,mesy_
-		chkbox "ページ数も入れる",page:mesy_+=20
+		chkbox "Incl page numbers",page:mesy_+=20
 		pagecid = stat
 		pagech = objinfo_hwnd(pagecid)
 
 		pos 17,mesy_
-		chkbox "レベルと艦名のみ",lvname:mesy_+=20
+		chkbox "Only name and lv",lvname:mesy_+=20
 		lvnamecid = stat
 		lvnamech = objinfo_hwnd(lvnamecid)
 
@@ -889,29 +888,29 @@ return
 		mesy2 = 5
 	
 		pos 5,mesy+1
-		mes "自動追加の方法":mesy+=20
+		mes "Ship arrangement:":mesy+=20
 	
 		objsize 70,20
 		
 		pos 7,mesy
-		chkbox "縦3横2",tuika1
+		chkbox "2c3r",tuika1
 		tuika1cid = stat
 		tuika1ch = objinfo_hwnd(tuika1cid)
 		SetWindowLong tuika1ch, -16, $50000009 | $20000
 		pos 80,mesy
-		chkbox "縦2横3",tuika4
+		chkbox "3c2r",tuika4
 		tuika4cid = stat
 		tuika4ch = objinfo_hwnd(tuika4cid)
 		sendmsg tuika4ch, $F4, $9
 		mesy+=20
 		
 		pos 7,mesy
-		chkbox "縦6横1",tuika3
+		chkbox "1c6r",tuika3
 		tuika3cid = stat
 		tuika3ch = objinfo_hwnd(tuika3cid)
 		sendmsg tuika3ch, $F4, $9
 		pos 80,mesy
-		chkbox "縦1横6",tuika2
+		chkbox "6c1r",tuika2
 		tuika2cid = stat
 		tuika2ch = objinfo_hwnd(tuika2cid)
 		sendmsg tuika2ch, $F4, $9
@@ -920,32 +919,32 @@ return
 		objsize 175,20
 	
 		pos 5,mesy+1
-		mes "キャプチャ範囲":mesy+=18
+		mes "Capture range:":mesy+=18
 	
 		pos 7,mesy
-		chkbox "装備とステータスと艦娘",sosuka:mesy+=20
+		chkbox "All",sosuka:mesy+=20
 		sosukacid = stat
 		sosukach = objinfo_hwnd(sosukacid)
 		SetWindowLong sosukach, -16, $50000009 | $20000
 	
 		pos 7,mesy
-		chkbox "装備とステータス",sosu:mesy+=20
+		chkbox "Equip and stats",sosu:mesy+=20
 		sosucid = stat
 		sosuch = objinfo_hwnd(sosucid)
 		sendmsg sosuch, $F4, $9
 	
 		pos 7,mesy
-		chkbox "装備と艦娘の画像",soka:mesy+=21
+		chkbox "Equip and sprite",soka:mesy+=21
 		sokacid = stat
 		sokach = objinfo_hwnd(sokacid)
 		sendmsg sokach, $F4, $9
 	
 		pos 5,mesy
-		chkbox "艦隊区切り線を追加",fleetPunctuation:mesy+=20
+		chkbox "Add fleet separator",fleetPunctuation:mesy+=20
 		fleetPunctuationCId = stat
 		fleetPunctuationCh = objinfo_hwnd(fleetPunctuationCId)
 		pos 5,mesy
-		chkbox "順番に番号を入れる",addOrderNum:mesy+=20
+		chkbox "Add position number",addOrderNum:mesy+=20
 		addOrderNumCId = stat	
 	
 		window2x = 175
@@ -953,7 +952,7 @@ return
 		objsize 70,22
 		
 		pos window2x+5,mesy2+1
-		mes "艦隊名":mesy2+=20
+		mes "Fleet name:":mesy2+=20
 		
 		pos window2x+7,mesy2+1
 		chkbox "第一艦隊",enableFirst
@@ -976,7 +975,7 @@ return
 		input FourthFleetName,95,22:mesy2+=25
 
 		pos window2x+5,mesy2+1
-		mes "艦隊名文字色":mesy2+=20
+		mes "Fleet text color:":mesy2+=20
 	
 		drawColorPos = mesy2
 		pos window2x+7,mesy2
@@ -1003,19 +1002,19 @@ return
 		objsize 175,20
 		
 		pos 7,mesy
-		chkbox "直接連結",directLink:mesy+=20
+		chkbox "Simple Concatenation",directLink:mesy+=20
 		directLinkCId = stat
 		directLinkCh = objinfo_hwnd(directLinkCId)
 		SetWindowLong directLinkCh, -16, $50000009 | $20000
 
 		pos 7,mesy
-		chkbox "基地航空隊",airStation:mesy+=20
+		chkbox "Land Base",airStation:mesy+=20
 		airStationCId = stat
 		airStationCh = objinfo_hwnd(airStationCId)
 		sendmsg airStationCh, $F4, $9
 		
 		pos 22,mesy
-		chkbox "タブまで入れる",airStationTab:mesy+=20
+		chkbox "Show tab",airStationTab:mesy+=20
 		airStationTabCId = stat
 		airStationTabCh = objinfo_hwnd(airStationTabCId)
 
@@ -1030,17 +1029,17 @@ return
 	objsize 175,20
 	
 	pos 7,mesy
-	chkbox "ツイートウィンドウ表示",enabletweetwindow:mesy+=20
+	chkbox "Display tweet window",enabletweetwindow:mesy+=20
 	enabletweetwindowcid = stat
 	enabletweetwindowch = objinfo_hwnd(enabletweetwindowcid)
 			
 	objsize 150-(((yabumiautoupload = 1) & (availableyabumi = 1))*25),30
 	pos 0,mesy
-	button gosub "作成",*make
+	button gosub "Create",*make
 	
 	objsize 25,30
 	pos 150-(((yabumiautoupload = 1) & (availableyabumi = 1))*25),mesy
-	button gosub "開",*listsavefopen
+	button gosub "O",*listsavefopen
 	fopenbid = stat
 	
 	if ((yabumiautoupload = 1) & (availableyabumi = 1)) {
@@ -1065,7 +1064,7 @@ return
 	} else {
 		gsel 1,0
 	}
-	title modemes(listmode+1)+"モード - 表示させたいセルにD&D"
+	title modemes(listmode+1)+" Mode - D&D to the selected cell"
 	width scrsize(0,listmode),scrsize(1,listmode)
 	
 	gosub *draw
@@ -1082,29 +1081,29 @@ return
 	
 	mesy = 30
 	pos 4,mesy
-	mes "readmeをよくお読み下さい":mesy+=20
+	mes "Consult readme before tweaking the options.":mesy+=20
 	
 	objsize 350,20
 	pos 5,mesy
-	chkbox "提督名を隠すのではなくカットする",namecut:mesy+=20
+	chkbox "Crop admiral name and level",namecut:mesy+=20
 	pos 5,mesy
-	chkbox "常にメインウィンドウを最前列表示",frontrow:mesy+=20
+	chkbox "Always on top",frontrow:mesy+=20
 	pos 5,mesy
-	chkbox "ログを非表示",hidelog:mesy+=20
+	chkbox "Hide log output",hidelog:mesy+=20
 	pos 5,mesy
-	chkbox "yabumiに自動でアップロードする",yabumiautoupload:mesy+=20
+	chkbox "Auto upload to yabumi",yabumiautoupload:mesy+=20
 	pos 5,mesy
-	chkbox "艦これが等倍でなくも取得できるようにする(手動のみ)",othergame:mesy+=20
+	chkbox "Force detection of KanColle",othergame:mesy+=20
 	pos 5,mesy
-	chkbox "キャプチャのプレビューを有効にする",dispcap:mesy+=20
+	chkbox "Enable screenshot preview",dispcap:mesy+=20
 	pos 5,mesy
-	chkbox "取得座標を手動で入力できるようにする",manualpos:mesy+=20
+	chkbox "Allow manual typing of coordinates",manualpos:mesy+=20
 	pos 5,mesy
-	chkbox "画像の右下に艦これ一覧めいかーの名前を入れる",senden:mesy+=20
+	chkbox "Add watermark in bottom-right of the image",senden:mesy+=20
 	pos 5,mesy
-	chkbox "起動時に自動でバージョンチェックを行う",autoVersionCheck:mesy+=20
+	chkbox "Check for update at startup",autoVersionCheck:mesy+=20
 	pos 5,mesy
-	chkbox "ホットキーでSSをキャプチャする",hotkeycap:mesy+=20
+	chkbox "Screenshot hotkey",hotkeycap:mesy+=20
 
 	objsize 50,20
 	pos 30,mesy
@@ -1118,20 +1117,20 @@ return
 	pos 240,mesy
 	input hotkeycapchar,20,20,1
 	pos 265,mesy
-	mes "キー":mesy+=20
+	mes "Key":mesy+=20
 	
 	objsize 350,20
 	pos 5,mesy
-	chkbox "＊一覧モードでSSを自動追加する",autoaddcaptcha:mesy+=20
+	chkbox "＊Auto-add screenshot to list mode",autoaddcaptcha:mesy+=20
 	pos 5,mesy
-	;chkbox "＊自動追加の場合はSSを保存しない",autoaddnonsave:mesy+=20
+	;chkbox "＊Don't save SS when using auto-add",autoaddnonsave:mesy+=20
 	pos 5,mesy
-	chkbox "jpgで保存する",jpgsave:mesy+=20
+	chkbox "Save as jpg",jpgsave:mesy+=20
 	
 	pos 5,mesy
-	mes "jpg保存品質"
+	mes "Quality:"
 	pos 155,mesy
-	mes "1～100(大きいほど高画質)"
+	mes "1～100 (higher is better)"
 	pos 100,mesy
 	input jpgquality,50,20,3:mesy+=20
 	jpgqualityiid = stat
@@ -1139,12 +1138,12 @@ return
 	SetWindowLong objinfo(jpgqualityiid,2), -16, stat | $2
 	
 	pos 5,mesy
-	chkbox "連続キャプチャを無効にする",disableseqcap:mesy+=20
+	chkbox "Disable continuous capture",disableseqcap:mesy+=20
 
 	pos 5,mesy
-	mes "連続キャプチャの間隔"
+	mes "Capture interval:"
 	pos 205,mesy
-	mes "x0.1秒 (0.1～99.9秒)"
+	mes "x0.1s (0.1～99.9s)"
 	pos 150,mesy
 	input timersec,50,20,3:mesy+=20
 	timerseciid = stat
@@ -1152,46 +1151,46 @@ return
 	SetWindowLong objinfo(timerseciid,2), -16, stat | $2
 	
 	pos 5,mesy+2
-	mes "Twitter連携"
+	mes "Twitter:"
 	objsize 250,25
 	pos 100,mesy
-	button gosub "認証情報をリセット",*twireset
+	button gosub "Reset auth info",*twireset
 	mesy+=25
 	
 	objsize 350,20
 	pos 5,mesy
-	chkbox "Twitterにはjpgで投稿する",twijpg:mesy+=20
+	chkbox "Post tweet in jpg",twijpg:mesy+=20
 
 	objsize 150,20
 	pos 14,mesy
-	mes "一覧保存先"
+	mes "Save location for list:"
 	pos 200,mesy
-	button gosub "一覧保存先変更",*listsavedialog:mesy+=20
+	button gosub "...",*listsavedialog:mesy+=20
 	pos 0,mesy
 	mesbox listsavedir,350,45,5,259:mesy+=45
 	listsdid = stat
 	
 	pos 14,mesy
-	mes "SS保存先"
+	mes "Save location for SS:"
 	pos 200,mesy
-	button gosub "SS保存先変更",*sssavedialog:mesy+=20
+	button gosub "...",*sssavedialog:mesy+=20
 	pos 0,mesy
 	mesbox sssavedir,350,45,5,259:mesy+=45
 	sssdid = stat
 	
 	pos 14,mesy
-	mes "連続撮影保存先"
+	mes "Save continuous SS:"
 	pos 200,mesy
-	button gosub "連続撮影保存先変更",*intervalshotsavedialog:mesy+=20
+	button gosub "...",*intervalshotsavedialog:mesy+=20
 	pos 0,mesy
 	mesbox intervalShotDir,350,45,5,259:mesy+=45
 	intervalShotDirsdid = stat
 	
 	
 	pos 14,mesy
-	mes "YabumiUploader.exeの場所"
+	mes "YabumiUploader.exe:"
 	pos 200,mesy
-	button gosub "変更",*yabumiuploaderdialog:mesy+=20
+	button gosub "...",*yabumiuploaderdialog:mesy+=20
 	pos 0,mesy
 	mesbox yabumidir,350,45,5,259:mesy+=45
 	yabumiid = stat
@@ -1229,26 +1228,26 @@ return
 			ycnt = cnt
 			repeat (disinfo(2) / 500)+2
 				pos (cnt*600)+(ycnt*70)-800,ycnt*200
-				mes "艦これ一覧めいかー　座標取得中"
+				mes "Select KanColle Area"
 			loop
 		loop
 		color 255,255,255
 		boxf abs(disinfo(0)),abs(disinfo(1)),abs(disinfo(0))+970,abs(disinfo(1))+45
 		color
 		pos abs(disinfo(0))+5,abs(disinfo(1))+2
-		mes "艦これの画面を覆うようにドラッグしてください Escキーでキャンセル"
+		mes "Drag selection to cover KanColle screen. Use Esc key to cancel."
 
 		getkancollewindowposmanual 10,sscap,9,11,17
 	
 	} else {
 		gsel 0
-		logmessage = "自動座標取得中です"
+		logmessage = "Coordinates are being searched."
 		objprm logid,logmessage:await 
 
 		getkancollewindowposauto2 10,sscap,20
 		if stat = -1{
 			if availablecap {
-				dialog "自動座標取得に失敗しました\n前回の座標を残しますか？",2,"確認"
+				dialog "Failed to acquire coordinates.\nDo you want to use last-known coordinates?",2,"Confirmation"
 				if stat = 7{
 					sscap(0) = 0,0,0,0
 					availablecap = 0
@@ -1287,14 +1286,14 @@ return
 			objenable yabumibid,1
 		}
 		
-		logmessage = "座標の取得に成功しました"
+		logmessage = "Coordinates successfully acquired."
 		objprm logid,logmessage
 		availablecap = 1
 	
 		if autoSearch:autoSearchFailureCount = 0
 		
 	} else {
-		sscapmes = "取得する"
+		sscapmes = "Get"
 		objprm sscapiid,sscapmes
 		
 		if mode = 0{
@@ -1303,7 +1302,7 @@ return
 			objenable yabumibid,0
 		}
 		
-		logmessage = "座標を取得できません\n詳細はreadmeをお読みください"
+		logmessage = "Cannot get coordinates.\nConsult readme file."
 		objprm logid,logmessage
 		availablecap = 0
 	
@@ -1415,9 +1414,9 @@ return
 	
 	if mode != modeOptionNum{
 		if kmexist(savenamepath) <= 0{
-			logmessage = savename+"の保存に失敗しました"
+			logmessage = "Failed to save "+savename
 		} else {
-			logmessage = savename+"を保存しました"
+			logmessage = "Saved to "+savename
 			if dispcap & (mode = 0){
 				pos 0,dispcapy
 				gzoom 175,105,5,0,0,sscapwh(0),sscapwh(1),1
@@ -1899,11 +1898,11 @@ return
 		RegisterHotKey hwnd0,HOTKEYID,(MOD_ALT*hotkeycapalt)|(MOD_CONTROL*hotkeycapctrl)|(MOD_SHIFT*hotkeycapshift)|(MOD_WIN*hotkeycapwin),hotkeycode
 		hotkeystr_temp = hotkeystr
 		if stat = 0{
-			logmessage = "ホットキーの設定に失敗しました"
+			logmessage = "Failed to set hotkey"
 			objprm logid,logmessage
 			hotkeyset = 0
 		} else {
-			logmessage = "ホットキーを設定しました"
+			logmessage = "Hotkey successfully set"
 			objprm logid,logmessage
 			hotkeyset = 1
 		}
