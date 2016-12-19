@@ -744,7 +744,7 @@ return
 	mesy+=30
 	
 	pos 2+(disableseqcap*-175),mesy+2
-	mes "連続キャプチャ"
+	mes "Continuous Capture"
 	objsize 80,25
 	pos 95+(disableseqcap*-175),mesy
 	if disableseqcap = 0:mesy+=24
@@ -1309,7 +1309,7 @@ return
 		if autoSearch{
 			autoSearchFailureCount++
 			if autoSearchFailureCount = 4{
-				dialog "自動取得に連続して失敗しました\n手動取得に切り替えもう一度座標取得しますか？",2,""
+				dialog "Failed to find KanColle Screen\nSwitch to manual mode?",2,""
 				if stat = 7:autoSearchFailureCount = 0
 			}
 		}
@@ -1367,7 +1367,7 @@ return
 	//
 	if (sscapwh(0) < 50) | (sscapwh(1) < 30){
 
-		logmessage = "取得範囲が小さすぎます"
+		logmessage = "Capture area is too small."
 		if mode != modeOptionNum{
 			objprm logid,logmessage
 		}
@@ -1845,7 +1845,7 @@ return 1
 //設定――――――――――――――――――――――――――――――――――
 *listsavedialog
 	
-	BrowseFolder "一覧の保存先",(dir_exe)
+	BrowseFolder "Select a folder to save ship list:",(dir_exe)
 	if stat = 1{
 		listsavedir = refstr
 		objprm listsdid,listsavedir
@@ -1855,7 +1855,7 @@ return
 
 *sssavedialog
 	
-	BrowseFolder "SSキャプチャの保存先",(dir_exe+"\\ScreenShots")
+	BrowseFolder "Select a folder to save screenshot:",(dir_exe+"\\ScreenShots")
 	if stat = 1{
 		sssavedir = refstr
 		objprm sssdid,sssavedir
@@ -1865,7 +1865,7 @@ return
 
 *intervalshotsavedialog
 	
-	BrowseFolder "連続撮影の保存先",(dir_exe+"\\ScreenShots")
+	BrowseFolder "Select a folder to save continuous SS:",(dir_exe+"\\ScreenShots")
 	if stat = 1{
 		intervalShotDir = refstr
 		objprm intervalShotDirsdid,intervalShotDir

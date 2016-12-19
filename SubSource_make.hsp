@@ -328,10 +328,10 @@
 		gsel 0,2
 			
 		if kmexist(listsavedir +"\\"+ savename) <= 0{
-			logmessage = savename+"‚Ì•Û‘¶‚É¸”s‚µ‚Ü‚µ‚½"
+			logmessage = "Failed to save "+savename
 			objprm logid,logmessage
 		} else {
-			logmessage = savename+"‚ğ•Û‘¶‚µ‚Ü‚µ‚½"
+			logmessage = "Saved to "+savename
 			objprm logid,logmessage
 	
 			//=============

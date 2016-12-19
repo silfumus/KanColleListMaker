@@ -47,7 +47,7 @@ return
 	if address != "Error"{
 		exec "rundll32.exe url.dll,FileProtocolHandler \""+address+"\""
 	} else {
-		dialog "認証に失敗しました\nインターネットに繋がっているか確認しもう一度お試しください"
+		dialog "Authentication failed.\nMake sure you have an active internet connection."
 	}
 
 return
@@ -60,7 +60,7 @@ return
 	
 	publishAccessToken ACCESS_TOKEN,ACCESS_SECRET,userdata,PIN
 	if stat != 200{
-		dialog "Twitter認証に失敗しました\nもう一度お試しください"
+		dialog "Authentication failed.\nPlease try again."
 	} else {
 		gosub *twiinit
 	}
@@ -142,12 +142,12 @@ return
 		title "ツイートウィンドウ"
 		font "メイリオ",14
 		pos 10,10
-		mes "Twitterへの投稿には認証が必要です"
+		mes "Authentication is required to post to Twitter."
 		mes "次のボタンを押すとブラウザが開くので表示されたコードを入力し、\nOKを押してください"
 	
 		pos 10,80
 		objsize 428,40
-		button gosub "ブラウザを開いて認証する",*openbrowser
+		button gosub "Authenticate",*openbrowser
 	
 		pos 10,134
 		mes "PIN"
@@ -265,7 +265,7 @@ return
 				pos twiPicFrameXL(flag)+1,twiPicFrameYU(flag)+1
 				gzoom 62,38,21,0,0,800,480
 	
-				sendmsg stackCounth ,$C , , strf("プレビュー")
+				sendmsg stackCounth ,$C , , strf("Preview")
 				
 				redraw 1
 			} else {
