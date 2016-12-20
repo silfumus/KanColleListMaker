@@ -1081,11 +1081,11 @@ return
 	
 	mesy = 30
 	pos 4,mesy
-	mes "Consult readme before tweaking the options.":mesy+=20
+	mes "Consult readme before changing any of the options.":mesy+=20
 	
 	objsize 350,20
 	pos 5,mesy
-	chkbox "Crop admiral name and level",namecut:mesy+=20
+	chkbox "Use crop to hide admiral information",namecut:mesy+=20
 	pos 5,mesy
 	chkbox "Always on top",frontrow:mesy+=20
 	pos 5,mesy
@@ -1093,17 +1093,17 @@ return
 	pos 5,mesy
 	chkbox "Auto upload to yabumi",yabumiautoupload:mesy+=20
 	pos 5,mesy
-	chkbox "Force detection of KanColle",othergame:mesy+=20
+	chkbox "Force detection of KanColle game screen",othergame:mesy+=20
 	pos 5,mesy
 	chkbox "Enable screenshot preview",dispcap:mesy+=20
 	pos 5,mesy
-	chkbox "Allow manual typing of coordinates",manualpos:mesy+=20
+	chkbox "Enable manual typing of coordinates",manualpos:mesy+=20
 	pos 5,mesy
-	chkbox "Add watermark in bottom-right of the image",senden:mesy+=20
+	chkbox "Add KanColleListMaker watermark",senden:mesy+=20
 	pos 5,mesy
-	chkbox "Check for update at startup",autoVersionCheck:mesy+=20
+	chkbox "Check for update",autoVersionCheck:mesy+=20
 	pos 5,mesy
-	chkbox "Screenshot hotkey",hotkeycap:mesy+=20
+	chkbox "Use hotkey for Screenshot",hotkeycap:mesy+=20
 
 	objsize 50,20
 	pos 30,mesy
@@ -1117,7 +1117,7 @@ return
 	pos 240,mesy
 	input hotkeycapchar,20,20,1
 	pos 265,mesy
-	mes "Key":mesy+=20
+	mes "-key":mesy+=20
 	
 	objsize 350,20
 	pos 5,mesy
@@ -1130,7 +1130,7 @@ return
 	pos 5,mesy
 	mes "Quality:"
 	pos 155,mesy
-	mes "1～100 (higher is better)"
+	mes "1-100 (higher is better)"
 	pos 100,mesy
 	input jpgquality,50,20,3:mesy+=20
 	jpgqualityiid = stat
@@ -1143,7 +1143,7 @@ return
 	pos 5,mesy
 	mes "Capture interval:"
 	pos 205,mesy
-	mes "x0.1s (0.1～99.9s)"
+	mes "x0.1s (0.1-99.9s)"
 	pos 150,mesy
 	input timersec,50,20,3:mesy+=20
 	timerseciid = stat
@@ -1163,7 +1163,7 @@ return
 
 	objsize 150,20
 	pos 14,mesy
-	mes "Save location for list:"
+	mes "Save location for list mode:"
 	pos 200,mesy
 	button gosub "...",*listsavedialog:mesy+=20
 	pos 0,mesy
@@ -1744,7 +1744,7 @@ return
 	
 	if seqcapf = 0{
 		SetTimer hwnd0,timerID,100*timersec,0
-		seqcapmes = "停止"
+		seqcapmes = "Stop"
 		objprm seqcapBId,seqcapmes
 		objenable comboxid,0
 		objenable sscapBId,0
@@ -1762,7 +1762,7 @@ return
 		gosub *sscaptcha
 	} else {
 		KillTimer hwnd0,timerID
-		seqcapmes = "開始"
+		seqcapmes = "Start"
 		objprm seqcapBId,seqcapmes
 		objenable comboxid,1
 		objenable sscapBId,1
@@ -1845,7 +1845,7 @@ return 1
 //設定――――――――――――――――――――――――――――――――――
 *listsavedialog
 	
-	BrowseFolder "Select a folder to save ship list:",(dir_exe)
+	BrowseFolder "Select a folder to save list mode:",(dir_exe)
 	if stat = 1{
 		listsavedir = refstr
 		objprm listsdid,listsavedir

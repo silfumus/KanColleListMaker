@@ -220,12 +220,12 @@ return
 	hidelog_ = hidelog
 	
 	if PathIsDirectory(listsavedir) = 0 {
-		savelogtext += "Info - 一覧保存先が存在しないためデフォルトに変更しました\n"
+		savelogtext += "Info - Using default folder for list mode.\n"
 		listsavedir = dir_exe
 	}
 
 	if PathIsDirectory(sssavedir) = 0{
-		savelogtext += "Info - SS保存先が存在しないためデフォルトに変更しました\n"
+		savelogtext += "Info - Using default folder for normal screenshot.\n"
 		chdir dir_exe
 		if PathIsDirectory(dir_exe+"\\ScreenShots") = 0 {
 			mkdir "ScreenShots"
@@ -234,7 +234,7 @@ return
 	}
 	
 	if PathIsDirectory(intervalShotDir) = 0{
-		savelogtext += "Info - 連続撮影保存先が存在しないためデフォルトに変更しました\n"
+		savelogtext += "Info - Using default folder for continuous screenshot.\n"
 		intervalShotDir = sssavedir
 	} 
 
@@ -251,7 +251,7 @@ return
 	}
 	
 	if (hotkeycapalt + hotkeycapctrl + hotkeycapshift + hotkeycapwin) = 0{
-		savelogtext += "Info - ホットキーの設定が不適切です(1) 設定をデフォルトに変更しました\n"
+		savelogtext += "Info - Invalid hotkey(1) resetting to default.\n"
 		hotkeycap = 0
 		hotkeycapalt = 1
 		hotkeycapctrl = 0
@@ -274,7 +274,7 @@ return
 			hotkeycapchar = strf("%c",hotkeycode)
 			poke hotkeystr,4,hotkeycode
 		} else {
-			savelogtext += "Info - ホットキーの設定が不適切です(2) 設定をデフォルトに変更しました\n"
+			savelogtext += "Info - Invalid hotkey(2) resetting to default.\n"
 			hotkeycode = 90
 			hotkeycapchar = strf("%c",hotkeycode)
 			hotkeystr = "A___Z"

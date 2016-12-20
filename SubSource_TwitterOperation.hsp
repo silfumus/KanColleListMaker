@@ -74,7 +74,7 @@ return
 		setAccessToken ACCESS_TOKEN, ACCESS_SECRET
 		nidpush
 		gsel 0
-		logmessage = "Twitter連携が有効です"
+		logmessage = "Twitter link is valid."
 		objprm logid,logmessage
 	
 		gsel 19
@@ -82,7 +82,7 @@ return
 		clrobj
 		
 		objmode 2
-		title "ツイートウィンドウ"
+		title "Tweet Window"
 		font "メイリオ",12
 		pos 1,1
 		mesbox tweettext,180,217,1
@@ -91,7 +91,7 @@ return
 		objsize 140,32
 		pos 0,218
 		font "メイリオ",20
-		button gosub "ツイート",*tweet_
+		button gosub "Tweet",*tweet_
 		tweetbid = stat
 	
 		objsize 105,30
@@ -139,11 +139,11 @@ return
 		boxf
 		color
 		objmode 2
-		title "ツイートウィンドウ"
+		title "Tweet Window"
 		font "メイリオ",14
 		pos 10,10
 		mes "Authentication is required to post to Twitter."
-		mes "次のボタンを押すとブラウザが開くので表示されたコードを入力し、\nOKを押してください"
+		mes "Press the following button to open the browser.\nEnter the displayed PIN code and press OK"
 	
 		pos 10,80
 		objsize 428,40
@@ -376,7 +376,7 @@ return
 		media_upload tempsdim,count,mediaids
 
 		if stat != 0{
-			dialog "画像のアップロードに失敗しました"
+			dialog "Upload failed"
 		} else {
 			tweet tweettext,"",mediaids
 			if stat = 200{
@@ -389,10 +389,10 @@ return
 				twiOrderCount = 0
 				objprm ttid,tweettext
 	
-				logmessage = "ツイートを投稿しました"
+				logmessage = "Tweet posted."
 
 			} else {
-				dialog "ツイートに失敗しました"
+				dialog "Failed to post tweet."
 			} 
 		}
 	
